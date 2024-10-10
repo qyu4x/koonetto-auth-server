@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  koonetto_authserver_postgres:
+    image: postgres:16.0-alpine
+    container_name: koonetto_authserver_postgres
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=neko
+      - POSTGRES_PASSWORD=miaw
+      - POSTGRES_DB=koonetto_auth_server
+    volumes:
+      - koonetto-authserver-data-slaves:/var/lib/postgresql/data
+
+  koonetto_authserver_redis:
+    image: redis:7.4.0-alpine
+    container_name: koonetto_authserver_redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    volumes:
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+
+volumes:
+  koonetto-authserver-data-slaves:
