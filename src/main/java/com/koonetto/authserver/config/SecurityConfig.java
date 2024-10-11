@@ -39,6 +39,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Configuration
@@ -142,7 +143,7 @@ public class SecurityConfig {
         return (context) -> {
             if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
                 context.getClaims().claims((claims) -> {
-                    List<String> scopes = (List<String>)claims.get("scope");
+                    Set<String> scopes = context.getClaims().build().getClaim("scope");
                     claims.put("roles", scopes);
                 });
             }
