@@ -3,6 +3,7 @@ package com.koonetto.authserver.provider;
 import com.koonetto.authserver.service.KoonettoAuthenticationService;
 import com.koonetto.authserver.service.KoonettoAuthenticationServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
