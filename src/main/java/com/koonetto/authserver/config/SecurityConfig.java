@@ -120,7 +120,7 @@ public class SecurityConfig {
 
 
         RegisteredClient pckeClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("miaw")
+                .clientId("miawclient")
                 .clientSecret("{noop}KzugZ3kmBeAevPU8WNR5GwLVrqS1Q87c")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
