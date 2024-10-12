@@ -103,7 +103,39 @@ public class SecurityConfig {
                         .build())
                 .build();
 
-        return new InMemoryRegisteredClientRepository(clientCredential);
+        RegisteredClient authorizationCode = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("miaw")
+                .clientSecret("{noop}KzugZ3kmBeAevPU8WNR5GwLVrqS1Q87c")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .redirectUri("https://oauth.pstmn.io/v1/callback")
+                .scope(OidcScopes.OPENID).scope(OidcScopes.EMAIL)
+                .tokenSettings(TokenSettings.builder()
+                        .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
+                        .refreshTokenTimeToLive(Duration.ofDays(1)).reuseRefreshTokens(false)
+                        .accessTokenTimeToLive(Duration.ofMinutes(15L))
+                        .build())
+                .build();
+
+
+        RegisteredClient pckeClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("miaw")
+                .clientSecret("{noop}KzugZ3kmBeAevPU8WNR5GwLVrqS1Q87c")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .redirectUri("https://oauth.pstmn.io/v1/callback")
+                .scope(OidcScopes.OPENID).scope(OidcScopes.EMAIL)
+                .clientSettings(ClientSettings.builder().requireProofKey(true).build())
+                .tokenSettings(TokenSettings.builder()
+                        .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
+                        .refreshTokenTimeToLive(Duration.ofDays(1)).reuseRefreshTokens(false)
+                        .accessTokenTimeToLive(Duration.ofMinutes(15L))
+                        .build())
+                .build();
+
+        return new InMemoryRegisteredClientRepository(clientCredential, authorizationCode, pckeClient);
     }
 
     @Bean
