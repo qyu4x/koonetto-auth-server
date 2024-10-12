@@ -115,6 +115,7 @@ public class SecurityConfig {
         RegisteredClient authorizationCode = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("miaw")
                 .clientSecret("{noop}KzugZ3kmBeAevPU8WNR5GwLVrqS1Q87d")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -131,6 +132,7 @@ public class SecurityConfig {
         RegisteredClient pckeClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("miawclient")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .redirectUri("https://oauth.pstmn.io/v1/callback")
@@ -187,7 +189,8 @@ public class SecurityConfig {
         return (context) -> {
             if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
                 context.getClaims().claims((claims) -> {
-                    if (context.getAuthorizationGrantType().equals(AuthorizationGrantType.AUTHORIZATION_CODE)) {
+                    if (context.getAuthorizationGrantType().equals(AuthorizationGrantType.AUTHORIZATION_CODE)
+                    || context.getAuthorizationGrantType().equals(AuthorizationGrantType.REFRESH_TOKEN)) {
                         Set<String> authorities = context.getPrincipal().getAuthorities().stream()
                                 .map(authority -> authority.getAuthority())
                                 .collect(Collectors.toSet());
