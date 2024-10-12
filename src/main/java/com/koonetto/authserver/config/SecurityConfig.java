@@ -62,7 +62,7 @@ public class SecurityConfig {
             throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-                .oidc(Customizer.withDefaults());	// Enable OpenID Connect 1.0
+                .oidc(Customizer.withDefaults());    // Enable OpenID Connect 1.0
         http
                 // Redirect to the login page when not authenticated from the
                 // authorization endpoint
@@ -167,8 +167,7 @@ public class SecurityConfig {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
             keyPairGenerator.initialize(2048);
             keyPair = keyPairGenerator.generateKeyPair();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new IllegalStateException(ex);
         }
         return keyPair;
@@ -190,13 +189,13 @@ public class SecurityConfig {
             if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
                 context.getClaims().claims((claims) -> {
                     if (context.getAuthorizationGrantType().equals(AuthorizationGrantType.AUTHORIZATION_CODE)
-                    || context.getAuthorizationGrantType().equals(AuthorizationGrantType.REFRESH_TOKEN)) {
+                            || context.getAuthorizationGrantType().equals(AuthorizationGrantType.REFRESH_TOKEN)) {
                         Set<String> authorities = context.getPrincipal().getAuthorities().stream()
                                 .map(authority -> authority.getAuthority())
                                 .collect(Collectors.toSet());
 
                         claims.put("roles", authorities);
-                    } else if (context.getAuthorizationGrantType().equals(AuthorizationGrantType.CLIENT_CREDENTIALS)){
+                    } else if (context.getAuthorizationGrantType().equals(AuthorizationGrantType.CLIENT_CREDENTIALS)) {
                         Set<String> scopes = context.getClaims().build().getClaim("scope");
                         claims.put("roles", scopes);
                     }
