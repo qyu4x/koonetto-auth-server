@@ -105,7 +105,7 @@ public class SecurityConfig {
 
         RegisteredClient authorizationCode = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("miaw")
-                .clientSecret("{noop}KzugZ3kmBeAevPU8WNR5GwLVrqS1Q87c")
+                .clientSecret("{noop}KzugZ3kmBeAevPU8WNR5GwLVrqS1Q87d")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -121,7 +121,7 @@ public class SecurityConfig {
 
         RegisteredClient pckeClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("miawclient")
-                .clientSecret("{noop}KzugZ3kmBeAevPU8WNR5GwLVrqS1Q87c")
+                .clientSecret("{noop}KzugZ3kmBeAevPU8WNR5GwLVrqS1Q87e")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
