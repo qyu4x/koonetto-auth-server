@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "authorities")
 @Entity
-public class Authority {
+public class Authority implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

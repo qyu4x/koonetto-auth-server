@@ -1,6 +1,7 @@
 package com.koonetto.authserver.provider;
 
 import com.koonetto.authserver.service.KoonettoAuthenticationService;
+import com.koonetto.authserver.service.KoonettoAuthenticationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -25,7 +26,7 @@ public class KoonettoAuthenticationProvider implements AuthenticationProvider {
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        UserDetails userDetails = koonettoAuthenticationService.loadUserByUsername(email);
+        UserDetails userDetails = koonettoAuthenticationService.loadUserByEmail(email);
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
             return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), password, userDetails.getAuthorities());
         } else {
